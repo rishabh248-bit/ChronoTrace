@@ -1,0 +1,242 @@
+[
+  {
+    "decision_id": 1,
+    "topic": "Primary Database Engine",
+    "decision_text": "Adopt MongoDB Atlas as primary document store for rapid schema prototyping",
+    "document": "Topic: Primary Database Engine | Decision: Adopt MongoDB Atlas as primary document store for rapid schema prototyping",
+    "session_number": 101,
+    "meeting_id": 101,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 1,
+      "topic": "Primary Database Engine",
+      "session_number": 101,
+      "meeting_id": 101,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 2,
+    "topic": "Authentication Protocol",
+    "decision_text": "Use JWT bearer tokens with 15-minute expiry",
+    "document": "Topic: Authentication Protocol | Decision: Use JWT bearer tokens with 15-minute expiry",
+    "session_number": 101,
+    "meeting_id": 101,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 2,
+      "topic": "Authentication Protocol",
+      "session_number": 101,
+      "meeting_id": 101,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 7,
+    "topic": "Primary Database Engine",
+    "decision_text": "Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "document": "Topic: Primary Database Engine | Decision: Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "session_number": 104,
+    "meeting_id": 104,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 7,
+      "topic": "Primary Database Engine",
+      "session_number": 104,
+      "meeting_id": 104,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 8,
+    "topic": "API Gateway Architecture",
+    "decision_text": "For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "document": "Topic: API Gateway Architecture | Decision: For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "session_number": 104,
+    "meeting_id": 104,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 8,
+      "topic": "API Gateway Architecture",
+      "session_number": 104,
+      "meeting_id": 104,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 9,
+    "topic": "API Gateway Architecture",
+    "decision_text": "Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "document": "Topic: API Gateway Architecture | Decision: Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "session_number": 104,
+    "meeting_id": 104,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 9,
+      "topic": "API Gateway Architecture",
+      "session_number": 104,
+      "meeting_id": 104,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 10,
+    "topic": "Primary Database Engine",
+    "decision_text": "Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "document": "Topic: Primary Database Engine | Decision: Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "session_number": 104,
+    "meeting_id": 105,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 10,
+      "topic": "Primary Database Engine",
+      "session_number": 104,
+      "meeting_id": 105,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 11,
+    "topic": "API Gateway Architecture",
+    "decision_text": "For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "document": "Topic: API Gateway Architecture | Decision: For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "session_number": 104,
+    "meeting_id": 105,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 11,
+      "topic": "API Gateway Architecture",
+      "session_number": 104,
+      "meeting_id": 105,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 12,
+    "topic": "API Gateway Architecture",
+    "decision_text": "Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "document": "Topic: API Gateway Architecture | Decision: Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "session_number": 104,
+    "meeting_id": 105,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 12,
+      "topic": "API Gateway Architecture",
+      "session_number": 104,
+      "meeting_id": 105,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 13,
+    "topic": "Primary Database Engine",
+    "decision_text": "Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "document": "Topic: Primary Database Engine | Decision: Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "session_number": 104,
+    "meeting_id": 106,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 13,
+      "topic": "Primary Database Engine",
+      "session_number": 104,
+      "meeting_id": 106,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 14,
+    "topic": "API Gateway Architecture",
+    "decision_text": "For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "document": "Topic: API Gateway Architecture | Decision: For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "session_number": 104,
+    "meeting_id": 106,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 14,
+      "topic": "API Gateway Architecture",
+      "session_number": 104,
+      "meeting_id": 106,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 15,
+    "topic": "API Gateway Architecture",
+    "decision_text": "Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "document": "Topic: API Gateway Architecture | Decision: Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "session_number": 104,
+    "meeting_id": 106,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 15,
+      "topic": "API Gateway Architecture",
+      "session_number": 104,
+      "meeting_id": 106,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 16,
+    "topic": "Primary Database Engine",
+    "decision_text": "Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "document": "Topic: Primary Database Engine | Decision: Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance.",
+    "session_number": 105,
+    "meeting_id": 107,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 16,
+      "topic": "Primary Database Engine",
+      "session_number": 105,
+      "meeting_id": 107,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 17,
+    "topic": "API Gateway Architecture",
+    "decision_text": "For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "document": "Topic: API Gateway Architecture | Decision: For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin.",
+    "session_number": 105,
+    "meeting_id": 107,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 17,
+      "topic": "API Gateway Architecture",
+      "session_number": 105,
+      "meeting_id": 107,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 18,
+    "topic": "API Gateway Architecture",
+    "decision_text": "Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "document": "Topic: API Gateway Architecture | Decision: Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS.",
+    "session_number": 105,
+    "meeting_id": 107,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 18,
+      "topic": "API Gateway Architecture",
+      "session_number": 105,
+      "meeting_id": 107,
+      "status": "Active"
+    }
+  },
+  {
+    "decision_id": 19,
+    "topic": "Primary Database Engine",
+    "decision_text": "Pointing in the sink will be officially decided to prevent from mongodb to cause the actual 16 with low level security for acid ledger compliance bob will write the schema migration script from mongodb prototypes to post their sql ddl by next friday for h traffic and centralised or enforcement let's deploy kong api gateway with open id connect plugin approved on kong api gateway but someone needs to evaluate kong versus android",
+    "document": "Topic: Primary Database Engine | Decision: Pointing in the sink will be officially decided to prevent from mongodb to cause the actual 16 with low level security for acid ledger compliance bob will write the schema migration script from mongodb prototypes to post their sql ddl by next friday for h traffic and centralised or enforcement let's deploy kong api gateway with open id connect plugin approved on kong api gateway but someone needs to evaluate kong versus android",
+    "session_number": 108,
+    "meeting_id": 109,
+    "status": "Active",
+    "metadata": {
+      "decision_id": 19,
+      "topic": "Primary Database Engine",
+      "session_number": 108,
+      "meeting_id": 109,
+      "status": "Active"
+    }
+  }
+]

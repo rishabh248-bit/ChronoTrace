@@ -1,0 +1,58 @@
+[
+  {
+    "speaker": "SPEAKER_00",
+    "speaker_name": "Alice Chen",
+    "start": 0.0,
+    "end": 8.45,
+    "text": "Good morning team. In this architecture sync, we must address the transaction issues we uncovered in our MongoDB prototype."
+  },
+  {
+    "speaker": "SPEAKER_01",
+    "speaker_name": "Bob Martinez",
+    "start": 8.75,
+    "end": 22.3,
+    "text": "Right, Alice. During our multi-document ledger benchmark under concurrent writes, we observed write conflicts and unpredictable transaction aborts. MongoDB Atlas is struggling with cross-shard ACID."
+  },
+  {
+    "speaker": "SPEAKER_00",
+    "speaker_name": "Alice Chen",
+    "start": 22.6,
+    "end": 35.1,
+    "text": "Understood. Therefore, we will officially pivot from MongoDB to PostgreSQL 16 with Row-Level Security for ACID ledger compliance."
+  },
+  {
+    "speaker": "SPEAKER_01",
+    "speaker_name": "Bob Martinez",
+    "start": 35.4,
+    "end": 45.8,
+    "text": "I agree. I will write the schema migration scripts from MongoDB prototypes to PostgreSQL DDL by next Friday."
+  },
+  {
+    "speaker": "SPEAKER_02",
+    "speaker_name": "Charlie Patel",
+    "start": 46.2,
+    "end": 62.0,
+    "text": "For edge traffic and centralized auth enforcement, let's deploy Kong API Gateway with OpenID Connect plugin."
+  },
+  {
+    "speaker": "SPEAKER_00",
+    "speaker_name": "Alice Chen",
+    "start": 62.3,
+    "end": 71.5,
+    "text": "Approved on Kong API Gateway. But someone needs to evaluate Kong versus Envoy gateway latency benchmarks on AWS EKS."
+  },
+  {
+    "speaker": "SPEAKER_01",
+    "speaker_name": "Bob Martinez",
+    "start": 71.9,
+    "end": 85.0,
+    "text": "One open question: should we run Postgres on AWS Aurora Serverless v2 or self-managed on EKS with CloudNativePG?"
+  },
+  {
+    "speaker": "SPEAKER_02",
+    "speaker_name": "Charlie Patel",
+    "start": 85.4,
+    "end": 96.2,
+    "text": "Also remember, we still haven't resolved our cross-region disaster recovery RTO and RPO target from our first sprint meeting."
+  }
+]
