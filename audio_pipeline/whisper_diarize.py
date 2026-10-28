@@ -1,7 +1,8 @@
 """
 ChronoTrace / SynapseState Speech Processing & Multi-Speaker Diarization Engine
 Integrates:
-  - Live browser microphone audio ingestion with ffmpeg normalization
+  - Live browser microphone audio ingestion with ffmpeg & scipy dual-normalization
+  - Cloud-safe: Runs on Linux Streamlit Cloud containers with or without ffmpeg
   - Google SpeechRecognition (chunked for arbitrary file lengths from 3s to 30m+)
   - Gemini 2.5 Flash Multimodal Audio transcription (cloud zero-dependency mode)
   - OpenAI Whisper (local or API)
@@ -27,7 +28,8 @@ class AudioDiarizationPipeline:
     """
     Production speech diarization and transcription pipeline.
     Transcribes actual user audio from microphone or files using Google SpeechRecognition,
-    Gemini Audio API, or local Whisper. Supports any recording duration.
+    Gemini Audio API, or local Whisper. Supports any recording duration and auto-normalizes
+    audio via ffmpeg with scipy pure-Python fallback for cloud containers.
     """
 
     def __init__(
@@ -47,7 +49,11 @@ class AudioDiarizationPipeline:
         self._diarization_pipeline = None
 
     def normalize_audio(self, input_path: Path, output_path: Path) -> bool:
-        """Normalizes audio to 16kHz mono PCM WAV using ffmpeg."""
+        """
+        Normalizes audio to 16kHz mono PCM WAV.
+        Tries system ffmpeg first; falls back to pure-Python scipy if ffmpeg is missing.
+        """
+        # 1. Try ffmpeg if available
         try:
             cmd = [
                 "ffmpeg", "-y", "-i", str(input_path),
@@ -55,9 +61,31 @@ class AudioDiarizationPipeline:
                 str(output_path)
             ]
             res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            return res.returncode == 0 and output_path.exists()
+            if res.returncode == 0 and output_path.exists():
+                return True
+        except Exception:
+            pass
+
+        # 2. Pure-Python Fallback using scipy (No external ffmpeg required)
+        try:
+            import numpy as np
+            import scipy.io.wavfile as wavfile
+
+            sr_rate, data = wavfile.read(str(input_path))
+            # Downmix stereo to mono
+            if len(data.shape) > 1:
+                data = data.mean(axis=1)
+
+            # Convert 32-bit float or 32-bit int to 16-bit PCM
+            if data.dtype in (np.float32, np.float64):
+                data = (np.clip(data, -1.0, 1.0) * 32767).astype(np.int16)
+            elif data.dtype != np.int16:
+                data = data.astype(np.int16)
+
+            wavfile.write(str(output_path), sr_rate, data)
+            return output_path.exists()
         except Exception as e:
-            print(f"[AudioPipeline] ffmpeg normalization warning: {e}")
+            print(f"[AudioPipeline] Scipy normalization note: {e}")
             return False
 
     def transcribe_with_speech_recognition(self, wav_path: Path) -> List[Dict[str, Any]]:
@@ -116,17 +144,30 @@ class AudioDiarizationPipeline:
             print(f"[AudioPipeline] SpeechRecognition error: {e}")
             return []
 
-    def transcribe_with_gemini(self, audio_bytes: bytes) -> Optional[List[Dict[str, Any]]]:
-        """Transcribes audio using Gemini 2.5 Flash Multimodal Audio API if key is available."""
+    def transcribe_with_gemini(self, audio_bytes: bytes, filename: str = "audio.wav") -> Optional[List[Dict[str, Any]]]:
+        """
+        Transcribes audio directly via Gemini 2.5 Flash Multimodal API.
+        Requires ZERO ffmpeg or system binaries — accepts any audio format natively.
+        """
         if not self.gemini_key:
             return None
         try:
+            mime = "audio/wav"
+            if filename.endswith(".mp3"):
+                mime = "audio/mp3"
+            elif filename.endswith(".ogg"):
+                mime = "audio/ogg"
+            elif filename.endswith(".webm"):
+                mime = "audio/webm"
+            elif filename.endswith(".m4a"):
+                mime = "audio/m4a"
+
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={self.gemini_key}"
             b64_data = base64.b64encode(audio_bytes).decode("utf-8")
             payload = {
                 "contents": [{
                     "parts": [
-                        {"inline_data": {"mime_type": "audio/wav", "data": b64_data}},
+                        {"inline_data": {"mime_type": mime, "data": b64_data}},
                         {"text": (
                             "You are an expert audio transcription system. Transcribe the audio precisely. "
                             "Identify distinct speakers and provide sub-second start and end timestamps. "
@@ -161,13 +202,17 @@ class AudioDiarizationPipeline:
         norm_wav_path = temp_dir / "temp_normalized_16k.wav"
 
         audio_bytes = None
+        filename = "recording.wav"
+
         if isinstance(audio_path_or_bytes, (str, Path)):
             p = Path(audio_path_or_bytes)
             if p.exists():
+                filename = p.name
                 with open(p, "rb") as f:
                     audio_bytes = f.read()
                 raw_input_path = p
         elif hasattr(audio_path_or_bytes, "read"):
+            filename = getattr(audio_path_or_bytes, "name", "recording.wav")
             audio_bytes = audio_path_or_bytes.read()
             with open(raw_input_path, "wb") as f:
                 f.write(audio_bytes)
@@ -180,22 +225,22 @@ class AudioDiarizationPipeline:
             print("[AudioPipeline] No audio bytes received.")
             return []
 
-        # Normalize with ffmpeg to 16kHz mono WAV
-        normalized_ok = self.normalize_audio(raw_input_path, norm_wav_path)
-        target_wav = norm_wav_path if normalized_ok else raw_input_path
-
-        # 1. Try Gemini Multimodal Audio (Cloud AI)
+        # 1. Try Gemini Multimodal Audio first if API key is present (No ffmpeg needed at all!)
         if self.gemini_key:
-            gemini_turns = self.transcribe_with_gemini(audio_bytes)
+            gemini_turns = self.transcribe_with_gemini(audio_bytes, filename=filename)
             if gemini_turns:
                 return gemini_turns
 
-        # 2. Try SpeechRecognition (Google Web Speech API - free, zero API key)
+        # 2. Normalize audio (ffmpeg first, pure scipy second)
+        normalized_ok = self.normalize_audio(raw_input_path, norm_wav_path)
+        target_wav = norm_wav_path if normalized_ok else raw_input_path
+
+        # 3. Try SpeechRecognition (Google Web Speech API - free, zero API key)
         sr_turns = self.transcribe_with_speech_recognition(target_wav)
         if sr_turns:
             return sr_turns
 
-        # 3. If audio has no detectable speech, return empty list
+        # 4. If normalized failed and original was tried, report no speech
         print("[AudioPipeline] No intelligible speech detected in audio.")
         return []
 

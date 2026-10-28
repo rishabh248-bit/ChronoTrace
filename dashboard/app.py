@@ -108,6 +108,16 @@ def init_session_state():
 
 init_session_state()
 
+# Bind Streamlit Cloud Secrets if available
+try:
+    if hasattr(st, "secrets"):
+        if "GEMINI_API_KEY" in st.secrets and not os.getenv("GEMINI_API_KEY"):
+            os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+        if "OPENAI_API_KEY" in st.secrets and not os.getenv("OPENAI_API_KEY"):
+            os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+except Exception:
+    pass
+
 # Sidebar Navigation & Management
 st.sidebar.markdown(
     """
@@ -325,7 +335,13 @@ if st.session_state["current_view"] == "🎙️ Record & Ingest Meeting":
                         ]
                         user_spoken_text = edited_transcript
             else:
-                st.warning("⚠️ Could not detect clear spoken words in this audio. Please speak clearly into your microphone or enter what was said in 'Direct Transcript Input'.")
+                st.warning(
+                    "⚠️ Could not detect clear spoken words in this audio recording.\n\n"
+                    "**Fixes for Streamlit Cloud:**\n"
+                    "1. Ensure `packages.txt` containing `ffmpeg` is committed to your repository so Linux installs ffmpeg.\n"
+                    "2. Or add your free `GEMINI_API_KEY` in Streamlit Cloud Secrets (or the sidebar expander) for zero-dependency cloud transcription.\n"
+                    "3. You can also use **'✏️ Direct Transcript Input'** to paste or type your discussion."
+                )
 
         st.markdown('</div>', unsafe_allow_html=True)
 
