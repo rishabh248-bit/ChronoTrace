@@ -23,6 +23,15 @@ This guide provides end-to-end instructions for deploying **ChronoTrace** direct
      git push -u origin main
      ```
 
+3. **Linux System Audio Dependencies (`packages.txt`):**
+   - Streamlit Cloud runs on Debian/Ubuntu Linux containers.
+   - For audio decoding and browser microphone audio conversion, `ffmpeg` must be installed by Streamlit Cloud.
+   - The repository includes a `packages.txt` file at the root containing:
+     ```
+     ffmpeg
+     ```
+   - Streamlit Cloud automatically reads this file during deployment and runs `apt-get install -y ffmpeg`. Make sure `packages.txt` is committed to your repository!
+
 ---
 
 ## 2. Deploy on Streamlit Community Cloud
